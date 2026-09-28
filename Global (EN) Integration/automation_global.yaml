@@ -977,6 +977,9 @@ actions:
                 state:
                   - unknown
                   - unavailable
+          - condition: state
+            entity_id: input_boolean.zendure_setting_prevent_discharge
+            state: "off"
         sequence:
           - data:
               sn: "{{ states('sensor.zendure_serial_number') }}"
@@ -1086,6 +1089,9 @@ actions:
                 state:
                   - unknown
                   - unavailable
+          - condition: state
+            entity_id: input_boolean.zendure_setting_prevent_discharge
+            state: "off"
         sequence:
           - data:
               sn: "{{ states('sensor.zendure_serial_number') }}"

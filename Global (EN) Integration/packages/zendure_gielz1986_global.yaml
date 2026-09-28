@@ -57,6 +57,10 @@ input_boolean:
     name: Zendure PV Export Disabled
     icon: mdi:solar-panel
 
+  zendure_setting_prevent_discharge:
+    name: Zendure Prevent Discharge
+    icon: mdi:battery-lock
+
 input_text:
   zendure_setting_battery_order:
     name: Zendure Battery Order

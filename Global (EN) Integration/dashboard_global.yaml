@@ -2752,6 +2752,8 @@ views:
                 name: Start Discharge At
               - entity: input_number.zendure_setting_discharge_buffer
                 name: Discharge Buffer
+              - entity: input_boolean.zendure_setting_prevent_discharge
+                name: Prevent Discharge
       - type: grid
         cards:
           - type: heading

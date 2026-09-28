@@ -1,0 +1,58 @@
+# =============================================================================
+# Zendure Prevent Discharge - time-based control of the discharge lock
+# =============================================================================
+# The Zendure operation mode stays on "Smart Matching" at all times. These two
+# automations only toggle input_boolean.zendure_setting_prevent_discharge,
+# which is checked as an extra condition in the discharge branches of the
+# Gielz automation (automation_global.yaml). Charging from PV surplus is
+# never affected.
+#
+# This file is optional: import it only if you want the discharge lock to be
+# controlled automatically. If it is not imported,
+# zendure_setting_prevent_discharge simply keeps its default (off), matching
+# previous behaviour.
+# =============================================================================
+automation:
+  - alias: "Zendure Prevent Discharge - Lock"
+    id: zendure_prevent_discharge_lock
+    description: Locks battery discharging based on the trigger's own conditions.
+    triggers:
+      - trigger: sun.sunrise
+        options:
+          offset:
+            hours: 2
+            minutes: 0
+            seconds: 0
+            days: 0
+          offset_type: after
+    actions:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.zendure_setting_prevent_discharge
+      - action: logbook.log
+        data:
+          name: Zendure
+          message: Discharging locked.
+    mode: single
+
+  - alias: "Zendure Prevent Discharge - Unlock"
+    id: zendure_prevent_discharge_unlock
+    description: Unlocks battery discharging based on the trigger's own conditions.
+    triggers:
+      - trigger: sun.sunset
+        options:
+          offset:
+            hours: 1
+            minutes: 0
+            seconds: 0
+            days: 0
+          offset_type: before
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.zendure_setting_prevent_discharge
+      - action: logbook.log
+        data:
+          name: Zendure
+          message: Discharging unlocked.
+    mode: single
